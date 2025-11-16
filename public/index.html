@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survival.io - Multiplayer Survival Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loginScreen" class="screen">
+    <div class="login-container">
+      <h1>Survival.io</h1>
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('login')">Login</button>
+        <button class="tab" onclick="showTab('register')">Register</button>
+      </div>
+      
+      <div id="loginForm" class="form active">
+        <input type="text" id="loginUsername" placeholder="Username" autocomplete="username">
+        <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+        <button onclick="login()">Login</button>
+      </div>
+      
+      <div id="registerForm" class="form">
+        <input type="text" id="registerUsername" placeholder="Username" autocomplete="username">
+        <input type="password" id="registerPassword" placeholder="Password" autocomplete="new-password">
+        <input type="password" id="registerConfirm" placeholder="Confirm Password" autocomplete="new-password">
+        <button onclick="register()">Register</button>
+      </div>
+      
+      <div id="errorMessage" class="error"></div>
+    </div>
+  </div>
+
+  <div id="gameScreen" class="screen hidden">
+    <div id="hud">
+      <div class="hud-section">
+        <div class="stat-bar">
+          <span>Health:</span>
+          <div class="bar">
+            <div id="healthBar" class="bar-fill health"></div>
+          </div>
+          <span id="healthText">100/100</span>
+        </div>
+        <div class="stat-bar">
+          <span>Hunger:</span>
+          <div class="bar">
+            <div id="hungerBar" class="bar-fill hunger"></div>
+          </div>
+          <span id="hungerText">100/100</span>
+        </div>
+      </div>
+      
+      <div class="hud-section">
+        <h3>Inventory</h3>
+        <div id="inventory">
+          <div>Wood: <span id="woodCount">0</span></div>
+          <div>Stone: <span id="stoneCount">0</span></div>
+          <div>Food: <span id="foodCount">0</span></div>
+          <div>Iron: <span id="ironCount">0</span></div>
+        </div>
+        <button onclick="eatFood()">Eat Food (E)</button>
+      </div>
+      
+      <div class="hud-section">
+        <h3>Equipment</h3>
+        <div id="equipment">
+          <div>Tool: <span id="toolName">Hand</span></div>
+          <div>Weapon: <span id="weaponName">Fist</span></div>
+          <div>Armor: <span id="armorName">None</span></div>
+        </div>
+      </div>
+
+      <div class="hud-section">
+        <h3>Stats</h3>
+        <div>Kills: <span id="killCount">0</span></div>
+        <div>Score: <span id="scoreCount">0</span></div>
+      </div>
+      
+      <button id="craftBtn" onclick="toggleCrafting()">Crafting (C)</button>
+      <button onclick="toggleLeaderboard()">Leaderboard (L)</button>
+    </div>
+
+    <div id="craftingMenu" class="menu hidden">
+      <h2>Crafting</h2>
+      <div id="recipeList"></div>
+      <button onclick="toggleCrafting()">Close</button>
+    </div>
+
+    <div id="leaderboardMenu" class="menu hidden">
+      <h2>Leaderboard</h2>
+      <div id="leaderboardList"></div>
+      <button onclick="toggleLeaderboard()">Close</button>
+    </div>
+
+    <div id="chatBox">
+      <div id="chatMessages"></div>
+      <input type="text" id="chatInput" placeholder="Press Enter to chat or / for commands" maxlength="100">
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+    
+    <div id="controls">
+      <p>WASD - Move | Mouse Click - Harvest/Attack | E - Eat | C - Craft | L - Leaderboard</p>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
